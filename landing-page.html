@@ -86,23 +86,25 @@
         }
         
         .hero {
-            background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('/api/placeholder/1920/1080');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            position: relative;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), 
+                        url('/resources/images/flight-over-ocean-stockcake.jpg') no-repeat center center/cover;
             height: 100vh;
             display: flex;
             align-items: center;
+            justify-content: center;
             text-align: center;
-            position: relative;
+            color: white;
         }
-        
+
         .hero-content {
+            position: relative;
+            z-index: 2;
             max-width: 800px;
             margin: 0 auto;
             padding: 2rem;
         }
-        
+
         .hero h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
@@ -110,23 +112,22 @@
             letter-spacing: 1px;
             line-height: 1.2;
         }
-        
+
         .hero h2 {
             font-size: 1.5rem;
             margin-bottom: 2rem;
             font-weight: 400;
             opacity: 0.9;
         }
-        
+
         .cta-buttons {
             display: flex;
             justify-content: center;
             gap: 1rem;
             margin-top: 2rem;
         }
-        
-        .btn {
-            display: inline-block;
+
+        .cta-buttons .btn {
             padding: 1rem 2rem;
             border-radius: 50px;
             text-decoration: none;
@@ -135,25 +136,25 @@
             letter-spacing: 1px;
             transition: all 0.3s ease;
         }
-        
+
         .btn-primary {
             background-color: var(--accent);
             color: white;
             box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
         }
-        
+
         .btn-primary:hover {
             background-color: #d32638;
             transform: translateY(-3px);
             box-shadow: 0 7px 20px rgba(230, 57, 70, 0.6);
         }
-        
+
         .btn-secondary {
             background-color: transparent;
             color: white;
             border: 2px solid white;
         }
-        
+
         .btn-secondary:hover {
             background-color: rgba(255, 255, 255, 0.1);
             transform: translateY(-3px);
@@ -887,6 +888,84 @@
                 max-width: calc(100% - 2rem);
             }
         }
+
+        .hero-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                padding: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero h2 {
+                font-size: 1rem;
+            }
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Hero Button Fix */
+        .btn-primary {
+            background-color: white; /* Change background to white for better contrast */
+            color: var(--accent); /* Use the accent color for text */
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            background-color: #f5f5f5; /* Slightly darker white for hover */
+            color: var(--accent); /* Keep text color consistent */
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(230, 57, 70, 0.6);
+        }
+
+        /* CTA Button Improvement */
+        .cta-section .btn-primary {
+            font-size: 1.2rem; /* Increase font size for better readability */
+            padding: 1.2rem 2.5rem; /* Add more padding for a larger button */
+            border: 2px solid var(--accent); /* Add a border for a polished look */
+            background-color: var(--accent); /* Keep the red background */
+            color: white; /* Ensure text is white for contrast */
+            box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3); /* Subtle shadow */
+        }
+
+        .cta-section .btn-primary:hover {
+            background-color: #d32638; /* Slightly darker red for hover */
+            border-color: #d32638; /* Match border color with background */
+            transform: translateY(-2px); /* Subtle hover effect */
+            box-shadow: 0 6px 15px rgba(230, 57, 70, 0.5);
+        }
+
+        /* General Button Styling */
+        .btn-primary {
+            background-color: var(--accent); /* Red background */
+            color: white; /* White text */
+            text-decoration: none; /* Remove underline */
+            padding: 1rem 2rem; /* Add padding for better size */
+            border-radius: 50px; /* Round corners */
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3); /* Subtle shadow */
+        }
+
+        .btn-primary:hover {
+            background-color: #d32638; /* Slightly darker red for hover */
+            transform: translateY(-2px); /* Subtle hover effect */
+            box-shadow: 0 6px 15px rgba(230, 57, 70, 0.5); /* Enhanced shadow on hover */
+        }
     </style>
 </head>
 <body>
@@ -911,35 +990,29 @@
     </header>
     
     <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <img style=" flex-shrink:1; flex-grow:1;"  src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fstockcake.com%2Fi%2Fflight-over-ocean_1257221_114103&psig=AOvVaw2JZkw9lhYqpe8VY25YtN3n&ust=1744870207655000&source=images&cd=vfe&opi=89978449&ved=0CBYQjRxqFwoTCICS6Jvy24wDFQAAAAAdAAAAABAE" alt="flight">
-                <h1>Unlock Travel's Best-Kept Secrets</h1>
-                <h2>Join thousands of savvy travellers who save up to 80% on flights with insider deals that never reach comparison sites.</h2>
-                <div class="cta-buttons">
-                    <a href="flight-vault.html" class="btn btn-primary">Access The Flight Vault</a>
-                    <a href="#how-it-works" class="btn btn-secondary">Learn More</a>
-                </div>
+    <div class="container">
+        <div class="hero-content">
+            <h1>Unlock <span class="highlight">Travel's Best-Kept Secrets</span></h1>
+            <h2>Join thousands of savvy travellers who save up to <span class="highlight">80%</span> on flights with insider deals that never reach comparison sites.</h2>
+            <div class="cta-buttons">
+                <a href="flight-vault.html" class="btn btn-primary">Access The Flight Vault</span></a>
+                <a href="#how-it-works" class="btn btn-secondary">Learn More</a>
             </div>
         </div>
-        <div class="scroll-indicator">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
-            </svg>
-        </div>
-    </section>
+    </div>
+</section>
     
     <section id="features" class="features">
         <div class="container">
             <div class="section-header">
-                <h2>Why Fly With Ralph?</h2>
-                <p>I help savvy travellers spot flight deals that the average person never finds, saving you hundreds on your next adventure.</p>
+                <h2>Why Fly With <span class="highlight">Ralph?</span></h2>
+                <p>I help savvy travellers spot flight deals that the average person never finds, saving you <span class="highlight">hundreds</span> on your next adventure.</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">💰</div>
-                    <h3>Save Up To 80%</h3>
-                    <p>My members regularly save 40-80% on flights to destinations worldwide, from weekend breaks to dream trips.</p>
+                    <h3>Save Up To <span class="highlight">80%</span></h3>
+                    <p>My members regularly save <span class="highlight">40-80%</span> on flights to destinations worldwide, from weekend breaks to dream trips.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🔍</div>
@@ -949,7 +1022,7 @@
                 <div class="feature-card">
                     <div class="feature-icon">✈️</div>
                     <h3>Premium Airlines</h3>
-                    <p>No budget carriers or uncomfortable flights. I focus on quality airlines with great service and amenities.</p>
+                    <p>No budget carriers or uncomfortable flights. I focus on <span class="highlight">quality airlines</span> with great service and amenities.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">⚡</div>
@@ -971,63 +1044,86 @@
     </section>
     
     <section id="destinations" class="destinations">
-        <div class="container">
-            <div class="section-header">
-                <h2>Recent Flight Deals</h2>
-                <p>These are real deals our members recently booked. New opportunities emerge daily!</p>
+    <div class="container">
+        <div class="section-header">
+            <h2>Recent <span class="highlight">Flight Deals</span></h2>
+            <p>These are real deals our members recently booked. New opportunities emerge <span class="highlight">daily!</span></p>
+        </div>
+        <div class="destinations-grid">
+            <div class="destination-card">
+                <img src="/api/placeholder/600/500" alt="New York">
+                <div class="destination-content">
+                    <h3>London to <span class="highlight">New York</span></h3>
+                    <p>Direct | Virgin Atlantic</p>
+                    <p class="destination-price"><span class="highlight">£299</span> Return</p>
+                </div>
             </div>
-            <div class="destinations-grid">
-                <div class="destination-card">
-                    <img src="/api/placeholder/600/500" alt="New York">
-                    <div class="destination-content">
-                        <h3>London to New York</h3>
-                        <p>Direct | Virgin Atlantic</p>
-                        <p class="destination-price">£299 Return</p>
-                    </div>
+            <div class="destination-card">
+                <img src="/api/placeholder/600/500" alt="Maldives">
+                <div class="destination-content">
+                    <h3>London to <span class="highlight">Maldives</span></h3>
+                    <p>1 Stop | Qatar Airways</p>
+                    <p class="destination-price"><span class="highlight">£489</span> Return</p>
                 </div>
-                <div class="destination-card">
-                    <img src="/api/placeholder/600/500" alt="Maldives">
-                    <div class="destination-content">
-                        <h3>London to Maldives</h3>
-                        <p>1 Stop | Qatar Airways</p>
-                        <p class="destination-price">£489 Return</p>
-                    </div>
+            </div>
+            <div class="destination-card">
+                <img src="/api/placeholder/600/500" alt="Tokyo">
+                <div class="destination-content">
+                    <h3>London to <span class="highlight">Tokyo</span></h3>
+                    <p>1 Stop | JAL</p>
+                    <p class="destination-price"><span class="highlight">£519</span> Return</p>
                 </div>
-                <div class="destination-card">
-                    <img src="/api/placeholder/600/500" alt="Tokyo">
-                    <div class="destination-content">
-                        <h3>London to Tokyo</h3>
-                        <p>1 Stop | JAL</p>
-                        <p class="destination-price">£519 Return</p>
-                    </div>
+            </div>
+            <div class="destination-card">
+                <img src="/api/placeholder/600/500" alt="Bali">
+                <div class="destination-content">
+                    <h3>London to <span class="highlight">Bali</span></h3>
+                    <p>1 Stop | Emirates</p>
+                    <p class="destination-price"><span class="highlight">£499</span> Return</p>
                 </div>
-                <div class="destination-card">
-                    <img src="/api/placeholder/600/500" alt="Bali">
-                    <div class="destination-content">
-                        <h3>London to Bali</h3>
-                        <p>1 Stop | Emirates</p>
-                        <p class="destination-price">£499 Return</p>
-                    </div>
+            </div>
+            <div class="destination-card">
+                <img src="/api/placeholder/600/500" alt="Los Angeles">
+                <div class="destination-content">
+                    <h3>London to <span class="highlight">Los Angeles</span></h3>
+                    <p>Direct | British Airways</p>
+                    <p class="destination-price"><span class="highlight">£389</span> Return</p>
                 </div>
-                <div class="destination-card">
-                    <img src="/api/placeholder/600/500" alt="Los Angeles">
-                    <div class="destination-content">
-                        <h3>London to Los Angeles</h3>
-                        <p>Direct | British Airways</p>
-                        <p class="destination-price">£389 Return</p>
-                    </div>
-                </div>
-                <div class="destination-card">
-                    <img src="/api/placeholder/600/500" alt="Dubai">
-                    <div class="destination-content">
-                        <h3>London to Dubai</h3>
-                        <p>Direct | Emirates</p>
-                        <p class="destination-price">£329 Return</p>
-                    </div>
+            </div>
+            <div class="destination-card">
+                <img src="/api/placeholder/600/500" alt="Dubai">
+                <div class="destination-content">
+                    <h3>London to <span class="highlight">Dubai</span></h3>
+                    <p>Direct | Emirates</p>
+                    <p class="destination-price"><span class="highlight">£329</span> Return</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<section id="how-it-works" class="how-it-works">
+    <div class="container">
+        <div class="section-header">
+            <h2>How The <span class="highlight">Flight Vault</span> Works</h2>
+            <p>Getting started with Ralph Travels is simple. Follow these three steps to unlock amazing flight deals.</p>
+        </div>
+        <div class="steps">
+            <div class="step">
+                <h3>Join The <span class="highlight">Flight Vault</span></h3>
+                <p>Make a <span class="highlight">one-time</span> payment to access my exclusive flight deals archive and real-time alerts.</p>
+            </div>
+            <div class="step">
+                <h3>Get <span class="highlight">Instant Access</span></h3>
+                <p>Unlock the vault and browse <span class="highlight">current deals</span> or set up alerts for destinations you're interested in.</p>
+            </div>
+            <div class="step">
+                <h3>Book & <span class="highlight">Save</span></h3>
+                <p>Use the direct booking links to secure your flights and save <span class="highlight">hundreds</span> on your next adventure.</p>
+            </div>
+        </div>
+    </div>
+</section>
     
     <section id="testimonials" class="testimonials">
         <div class="container">
@@ -1050,46 +1146,23 @@
         </div>
     </section>
     
-    <section id="how-it-works" class="how-it-works">
-        <div class="container">
-            <div class="section-header">
-                <h2>How The Flight Vault Works</h2>
-                <p>Getting started with Ralph Travels is simple. Follow these three steps to unlock amazing flight deals.</p>
-            </div>
-            <div class="steps">
-                <div class="step">
-                    <h3>Join The Flight Vault</h3>
-                    <p>Make a one-time payment to access my exclusive flight deals archive and real-time alerts.</p>
-                </div>
-                <div class="step">
-                    <h3>Get Instant Access</h3>
-                    <p>Unlock the vault and browse current deals or set up alerts for destinations you're interested in.</p>
-                </div>
-                <div class="step">
-                    <h3>Book & Save</h3>
-                    <p>Use the direct booking links to secure your flights and save hundreds on your next adventure.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
     <section id="cta" class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Ready To Travel For Less?</h2>
-                <p>Join thousands of smart travellers who never overpay for flights again.</p>
-                <div class="cta-price">
-                    <div class="price-value">£19.99</div>
-                    <div class="price-details">
-                        <div class="price-period">One-time payment</div>
-                        <div class="price-description">Lifetime access to the Flight Vault</div>
-                    </div>
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready To <span class="highlight">Travel For Less?</span></h2>
+            <p>Join thousands of smart travellers who never overpay for flights again.</p>
+            <div class="cta-price">
+                <div class="price-value"><span class="highlight">£19.99</span></div>
+                <div class="price-details">
+                    <div class="price-period">One-time payment</div>
+                    <div class="price-description">Lifetime access to the <span class="highlight">Flight Vault</span></div>
                 </div>
-                <a href="flight-vault.html" class="btn btn-primary">Access The Flight Vault Now</a>
-                <p class="guarantee">30-day money-back guarantee if you don't find a deal that saves you money</p>
             </div>
+            <a href="flight-vault.html" class="btn btn-primary">Access The Flight Vault Now</a>
+            <p class="guarantee" style="margin-top: 2.5rem; margin-bottom: 0; padding-bottom: 0;"><span class="highlight">30-day money-back guarantee</span> if you don't find a deal that saves you money</p>
         </div>
-    </section>
+    </div>
+</section>
     
     <section id="faq" class="faq">
         <div class="container">
