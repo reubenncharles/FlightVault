@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ralph Travels - Exclusive Flight Deals</title>
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #f5f5f5;
+            --accent: #e63946;
+            --text: #333333;
+            --bg: #ffffff;
+            --dark-bg: #0a0a0a;
+            --gradient-start: #1a1a1a;
+            --gradient-end: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--secondary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        header {
+            background-color: rgba(26, 26, 26, 0.95);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2rem;
+        }
+        
+        nav ul li a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .hero {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+        
+        .hero h2 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+        }
+        
+        .btn-primary:hover {
+            background-color: #d32638;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(230, 57, 70, 0.6);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+        
+        .features {
+            padding: 6rem 0;
+            background-color: var(--primary);
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.8;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.8), rgba(20, 20, 20, 0.8));
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card p {
+            opacity: 0.8;
+            flex-grow: 1;
+        }
+        
+        .destinations {
+            padding: 6rem 0;
+            background-color: var(--dark-bg);
+        }
+        
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .destination-card {
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            height: 350px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        
+        .destination-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .destination-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .destination-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .destination-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+        }
+        
+        .destination-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .destination-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        .testimonials {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+        }
+        
+        .testimonial-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .testimonial-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 3rem;
+            position: relative;
+        }
+        
+        .testimonial-card:before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 8rem;
+            color: var(--accent);
+            opacity: 0.2;
+            line-height: 1;
+        }
+        
+        .testimonial-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .author-info p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        .cta-section {
+            padding: 8rem 0;
+            text-align: center;
+            background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+        
+        .cta-price {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .price-value {
+            font-size: 4rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-right: 1rem;
+            line-height: 1;
+        }
+        
+        .price-details {
+            text-align: left;
+        }
+        
+        .price-period {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .price-description {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        .guarantee {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 1rem;
+        }
+        
+        .how-it-works {
+            padding: 6rem 0;
+            background-color: var(--primary);
+        }
+        
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            counter-reset: step;
+            margin-top: 4rem;
+        }
+        
+        .step {
+            flex: 0 0 30%;
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+        }
+        
+        .step:before {
+            counter-increment: step;
+            content: counter(step);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .step:not(:last-child):after {
+            content: "";
+            position: absolute;
+            top: 30px;
+            right: -15%;
+            width: 30%;
+            border-top: 2px dashed rgba(255, 255, 255, 0.2);
+        }
+        
+        .step h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .step p {
+            opacity: 0.8;
+        }
+        
+        .faq {
+            padding: 6rem 0;
+            background-color: var(--dark-bg);
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .faq-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .faq-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .faq-icon {
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        
+        .faq-answer {
+            margin-top: 1rem;
+            display: none;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        .instagram-feed {
+            padding: 6rem 0;
+            background-color: var(--primary);
+        }
+        
+        .insta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+        
+        .insta-item {
+            overflow: hidden;
+            aspect-ratio: 1 / 1;
+            position: relative;
+            border-radius: 10px;
+        }
+        
+        .insta-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .insta-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .insta-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .insta-item:hover .insta-overlay {
+            opacity: 1;
+        }
+        
+        .insta-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .insta-link:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            background-color: var(--dark-bg);
+            color: var(--secondary);
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            border-bottom: 2px solid var(--accent);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: var(--secondary);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.3s, color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            opacity: 1;
+            color: var(--accent);
+        }
+        
+        .newsletter-form {
+            display: flex;
+            margin-top: 1.5rem;
+        }
+        
+        .newsletter-input {
+            flex-grow: 1;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .newsletter-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0 1.5rem;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .newsletter-btn:hover {
+            background-color: #d32638;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--secondary);
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .bottom-footer {
+            padding-top: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .bottom-footer p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        .footer-nav {
+            margin-top: 1rem;
+        }
+        
+        .footer-nav a {
+            color: var(--secondary);
+            text-decoration: none;
+            opacity: 0.7;
+            margin: 0 0.5rem;
+            font-size: 0.9rem;
+            transition: opacity 0.3s, color 0.3s;
+        }
+        
+        .footer-nav a:hover {
+            opacity: 1;
+            color: var(--accent);
+        }
+        
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            z-index: 99;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            background-color: #d32638;
+        }
+        
+        /* Floating Deals Panel */
+        .floating-deals {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background-color: rgba(26, 26, 26, 0.95);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 98;
+            max-width: 300px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: translateY(150%);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .floating-deals.visible {
+            transform: translateY(0);
+        }
+        
+        .floating-deals h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .floating-deal {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .floating-deal:last-child {
+            margin-bottom: 0;
+        }
+        
+        .deal-destination {
+            flex-grow: 1;
+        }
+        
+        .deal-price {
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        .close-deals {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background-color: var(--primary);
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+                z-index: 1000;
+                padding: 5rem 2rem 2rem;
+            }
+            
+            nav.active {
+                transform: translateX(0);
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 1rem 0;
+            }
+            
+            .close-menu {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                background: none;
+                border: none;
+                color: var(--secondary);
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 1rem;
+            }
+            
+            .step:not(:last-child):after {
+                display: none;
+            }
+            
+            .step {
+                flex: 0 0 100%;
+                margin-bottom: 2rem;
+            }
+            
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .floating-deals {
+                left: 1rem;
+                right: 1rem;
+                max-width: calc(100% - 2rem);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">Ralph Travels</a>
+                <div class="mobile-menu">☰</div>
+                <nav>
+                    <button class="close-menu">✕</button>
+                    <ul>
+                        <li><a href="#features">How It Works</a></li>
+                        <li><a href="#destinations">Top Deals</a></li>
+                        <li><a href="#testimonials">Reviews</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="flight-vault.html">Flight Vault</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Unlock Travel's Best-Kept Secrets</h1>
+                <h2>Join thousands of savvy travellers who save up to 80% on flights with insider deals that never reach comparison sites.</h2>
+                <div class="cta-buttons">
+                    <a href="flight-vault.html" class="btn btn-primary">Access The Flight Vault</a>
+                    <a href="#how-it-works" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+            </svg>
+        </div>
+    </section>
+    
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Fly With Ralph?</h2>
+                <p>I help savvy travellers spot flight deals that the average person never finds, saving you hundreds on your next adventure.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Save Up To 80%</h3>
+                    <p>My members regularly save 40-80% on flights to destinations worldwide, from weekend breaks to dream trips.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Expert Deal Hunting</h3>
+                    <p>I spend hours each day searching for pricing errors, hidden deals, and flash sales that most people miss.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✈️</div>
+                    <h3>Premium Airlines</h3>
+                    <p>No budget carriers or uncomfortable flights. I focus on quality airlines with great service and amenities.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant Alerts</h3>
+                    <p>Get notified immediately when incredible deals match your travel preferences, before they disappear.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Personal Service</h3>
+                    <p>I'm a real person, not an algorithm. Ask me anything and get tailored advice for your travel needs.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Exclusive Access</h3>
+                    <p>Members-only deals and flight tips that aren't shared publicly, giving you a genuine travel advantage.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="destinations" class="destinations">
+        <div class="container">
+            <div class="section-header">
+                <h2>Recent Flight Deals</h2>
+                <p>These are real deals our members recently booked. New opportunities emerge daily!</p>
+            </div>
+            <div class="destinations-grid">
+                <div class="destination-card">
+                    <img src="/api/placeholder/600/500" alt="New York">
+                    <div class="destination-content">
+                        <h3>London to New York</h3>
+                        <p>Direct | Virgin Atlantic</p>
+                        <p class="destination-price">£299 Return</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="/api/placeholder/600/500" alt="Maldives">
+                    <div class="destination-content">
+                        <h3>London to Maldives</h3>
+                        <p>1 Stop | Qatar Airways</p>
+                        <p class="destination-price">£489 Return</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="/api/placeholder/600/500" alt="Tokyo">
+                    <div class="destination-content">
+                        <h3>London to Tokyo</h3>
+                        <p>1 Stop | JAL</p>
+                        <p class="destination-price">£519 Return</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="/api/placeholder/600/500" alt="Bali">
+                    <div class="destination-content">
+                        <h3>London to Bali</h3>
+                        <p>1 Stop | Emirates</p>
+                        <p class="destination-price">£499 Return</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="/api/placeholder/600/500" alt="Los Angeles">
+                    <div class="destination-content">
+                        <h3>London to Los Angeles</h3>
+                        <p>Direct | British Airways</p>
+                        <p class="destination-price">£389 Return</p>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="/api/placeholder/600/500" alt="Dubai">
+                    <div class="destination-content">
+                        <h3>London to Dubai</h3>
+                        <p>Direct | Emirates</p>
+                        <p class="destination-price">£329 Return</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Members Say</h2>
+                <p>Don't take my word for it. Here's what real members have to say about their experiences.</p>
+            </div>
+            <div class="testimonial-container">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Ralph found me a deal to New York for £299 that I couldn't find anywhere else. I've already saved over £600 on two trips this year. Best subscription I've ever had!"</p>
+                    <div class="testimonial-author">
+                        <img src="/api/placeholder/60/60" alt="Sarah J." class="author-image">
+                        <div class="author-info">
+                            <h4>Sarah J.</h4>
+                            <p>Member since 2023</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>How The Flight Vault Works</h2>
+                <p>Getting started with Ralph Travels is simple. Follow these three steps to unlock amazing flight deals.</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <h3>Join The Flight Vault</h3>
+                    <p>Make a one-time payment to access my exclusive flight deals archive and real-time alerts.</p>
+                </div>
+                <div class="step">
+                    <h3>Get Instant Access</h3>
+                    <p>Unlock the vault and browse current deals or set up alerts for destinations you're interested in.</p>
+                </div>
+                <div class="step">
+                    <h3>Book & Save</h3>
+                    <p>Use the direct booking links to secure your flights and save hundreds on your next adventure.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="cta" class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready To Travel For Less?</h2>
+                <p>Join thousands of smart travellers who never overpay for flights again.</p>
+                <div class="cta-price">
+                    <div class="price-value">£19.99</div>
+                    <div class="price-details">
+                        <div class="price-period">One-time payment</div>
+                        <div class="price-description">Lifetime access to the Flight Vault</div>
+                    </div>
+                </div>
+                <a href="flight-vault.html" class="btn btn-primary">Access The Flight Vault Now</a>
+                <p class="guarantee">30-day money-back guarantee if you don't find a deal that saves you money</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="faq" class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Got questions? I've got answers. Here are some of the most common questions I receive.</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How do you find these deals?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>I use a combination of advanced search techniques, industry connections, and proprietary tools to spot pricing errors, hidden deals, and flash sales that most people miss. I spend hours every day searching for the best flight deals so you don't have to.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Are these deals trustworthy?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! All deals are for flights with reputable airlines and are booked directly through the airline's website or trusted partners. These are real tickets with the same guarantees and protections as any standard booking.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What's included in my vault access?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Your one-time payment gives you lifetime access to the Flight Vault, which includes all current deals, access to future deals as they're discovered, destination guides, and my personal travel recommendations. You can also opt-in to email alerts for specific destinations.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How quickly do I need to book deals?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Error fares and flash sales can disappear quickly, sometimes within hours. I recommend booking as soon as you see a deal you like. However, many deals last several days, giving you time to coordinate with travel companions.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What if I can't find a deal that works for me?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>If you don't find a deal that saves you money within 30 days of joining, I offer a full refund. However, with dozens of new deals each month covering destinations worldwide, most members find valuable deals quickly.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I request deals for specific destinations?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Members can set up alerts for specific destinations, and I also take requests for destinations to prioritize in my searches. While I can't guarantee deals to every destination, I do my best to find options that work for my members.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="instagram-feed">
+        <div class="container">
+            <div class="section-header">
+                <h2>Follow My Adventures</h2>
+                <p>Join me on Instagram @ralph.travels for travel inspiration, behind-the-scenes deal hunting, and destination tips.</p>
+            </div>
+            <div class="insta-grid">
+                <div class="insta-item">
+                    <img src="/api/placeholder/400/400" alt="Instagram photo">
+                    <div class="insta-overlay">
+                        <span>📍</span>
+                    </div>
+                </div>
+                <div class="insta-item">
+                    <img src="/api/placeholder/400/400" alt="Instagram photo">
+                    <div class="insta-overlay">
+                        <span>📍</span>
+                    </div>
+                </div>
+                <div class="insta-item">
+                    <img src="/api/placeholder/400/400" alt="Instagram photo">
+                    <div class="insta-overlay">
+                        <span>📍</span>
+                    </div>
+                </div>
+                <div class="insta-item">
+                    <img src="/api/placeholder/400/400" alt="Instagram photo">
+                    <div class="insta-overlay">
+                        <span>📍</span>
+                    </div>
+                </div>
+                <div class="insta-item">
+                    <img src="/api/placeholder/400/400" alt="Instagram photo">
+                    <div class="insta-overlay">
+                        <span>📍</span>
+                    </div>
+                </div>
+                <div class="insta-item">
+                    <img src="/api/placeholder/400/400" alt="Instagram photo">
+                    <div class="insta-overlay">
+                        <span>📍</span>
+                    </div>
+                </div>
+                <div class="insta-item">
+                    <img src="/api/placeholder/400/400" alt="Instagram photo">
+                    <div class="insta-overlay">
+                        <span>📍</span>
+                    </div>
+                </div>
+                <div class="insta-item">
+                    <img src="/api/placeholder/400/400" alt="Instagram photo">
+                    <div class="insta-overlay">
+                        <span>📍</span>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="https://www.instagram.com/ralph.travels/" target="_blank" class="insta-link">Follow @ralph.travels →</a>
+            </div>
+        </div>
+    </section>
+    
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Ralph Travels</h3>
+                    <p>Helping savvy travellers find incredible flight deals since 2020.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/ralph.travels/" class="social-link" target="_blank">IG</a>
+                        <a href="https://www.tiktok.com/@ralph__travels" class="social-link" target="_blank">TK</a>
+                        <a href="#" class="social-link">FB</a>
+                        <a href="#" class="social-link">TW</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#features">How It Works</a></li>
+                        <li><a href="#destinations">Top Deals</a></li>
+                        <li><a href="flight-vault.html">Flight Vault</a></li>
+                        <li><a href="#testimonials">Reviews</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Me</h3>
+                    <ul>
+                        <li>Email: hello@ralphtravels.co.uk</li>
+                        <li>Instagram: @ralph.travels</li>
+                        <li>TikTok: @ralph__travels</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Join my free newsletter for travel tips and occasional free flight deals.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" class="newsletter-input">
+                        <button type="submit" class="newsletter-btn">→</button>
+                    </form>
+                </div>
+            </div>
+            <div class="bottom-footer">
+                <p>&copy; 2025 Ralph Travels. All rights reserved.</p>
+                <div class="footer-nav">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <a href="#" class="scroll-to-top">↑</a>
+    
+    <div class="floating-deals">
+        <button class="close-deals">×</button>
+        <h3>Today's Hot Deals</h3>
+        <div class="floating-deal">
+            <div class="deal-destination">London → Bali</div>
+            <div class="deal-price">£499</div>
+        </div>
+        <div class="floating-deal">
+            <div class="deal-destination">London → Tokyo</div>
+            <div class="deal-price">£519</div>
+        </div>
+        <div class="floating-deal">
+            <div class="deal-destination">London → NYC</div>
+            <div class="deal-price">£299</div>
+        </div>
+    </div>
+    
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu');
+        const closeMenuBtn = document.querySelector('.close-menu');
+        const nav = document.querySelector('nav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            nav.classList.add('active');
+        });
+        
+        closeMenuBtn.addEventListener('click', () => {
+            nav.classList.remove('active');
+        });
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (nav.classList.contains('active')) {
+                        nav.classList.remove('active');
+                    }
+                }
+            });
+        });
+        
+        // FAQ Accordions
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                const isOpen = item.classList.contains('active');
+                
+                // Close all FAQs
+                faqItems.forEach(faq => {
+                    faq.classList.remove('active');
+                });
+                
+                // Open clicked FAQ if it was closed
+                if (!isOpen) {
+                    item.classList.add('active');
+                }
+            });
+        });
+        
+        // Scroll to Top Button
+        const scrollTopBtn = document.querySelector('.scroll-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Show Floating Deals Panel after delay
+        setTimeout(() => {
+            const floatingDeals = document.querySelector('.floating-deals');
+            floatingDeals.classList.add('visible');
+        }, 5000);
+        
+        // Close Floating Deals Panel
+        const closeDealsBtn = document.querySelector('.close-deals');
+        closeDealsBtn.addEventListener('click', () => {
+            const floatingDeals = document.querySelector('.floating-deals');
+            floatingDeals.classList.remove('visible');
+        });
+        
+        // Scroll Indicator
+        const scrollIndicator = document.querySelector('.scroll-indicator');
+        scrollIndicator.addEventListener('click', () => {
+            window.scrollTo({
+                top: window.innerHeight,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
