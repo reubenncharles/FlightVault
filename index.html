@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ralph Travels - Flight Vault</title>
+    <title>Ralph Travels - Exclusive Flight Deals</title>
     <style>
         :root {
             --primary: #1a1a1a;
@@ -86,22 +86,25 @@
         }
         
         .hero {
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.95)), url('/api/placeholder/1920/1080');
-            background-size: cover;
-            background-position: center;
-            height: 50vh;
+            position: relative;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), 
+                        url('/resources/images/flight-over-ocean-stockcake.jpg') no-repeat center center/cover;
+            height: 100vh;
             display: flex;
             align-items: center;
+            justify-content: center;
             text-align: center;
-            margin-top: 4rem;
+            color: white;
         }
-        
+
         .hero-content {
+            position: relative;
+            z-index: 2;
             max-width: 800px;
             margin: 0 auto;
             padding: 2rem;
         }
-        
+
         .hero h1 {
             font-size: 3.5rem;
             margin-bottom: 1rem;
@@ -109,355 +112,83 @@
             letter-spacing: 1px;
             line-height: 1.2;
         }
-        
-        .hero p {
-            font-size: 1.2rem;
+
+        .hero h2 {
+            font-size: 1.5rem;
             margin-bottom: 2rem;
+            font-weight: 400;
             opacity: 0.9;
         }
-        
-        .vault-section {
-            padding: 6rem 0;
-            background-color: var(--primary);
-            text-align: center;
-        }
-        
-        .vault-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            position: relative;
-            padding: 2rem;
-            background: linear-gradient(to bottom, rgba(30,30,30,0.8), rgba(15,15,15,0.9));
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .vault-label {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 2rem;
-            letter-spacing: 2px;
-            color: var(--accent);
-            text-shadow: 0 0 15px rgba(230, 57, 70, 0.5);
-            animation: pulse 2s infinite;
-        }
-        
-        .vault {
-            width: 100%;
-            max-width: 600px;
-            margin: 3rem auto;
-            position: relative;
-            transform-style: preserve-3d;
-            perspective: 1000px;
-            filter: drop-shadow(0 30px 50px rgba(0,0,0,0.7));
-        }
-        
-        .vault-door {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            background: linear-gradient(135deg, #333, #111);
-            border-radius: 10px;
-            position: relative;
-            transform-origin: left;
-            transition: transform 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 6px solid #444;
-            overflow: hidden;
-        }
-        
-        .vault-door:before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 80%;
-            height: 80%;
-            transform: translate(-50%, -50%);
-            background: radial-gradient(circle at center, #444, #222);
-            border-radius: 50%;
-            border: 10px solid #333;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
-        }
-        
-        .vault-handle {
-            position: absolute;
-            top: 50%;
-            right: 15%;
-            transform: translateY(-50%);
-            width: 60px;
-            height: 60px;
-            background: #666;
-            border-radius: 50%;
-            border: 5px solid #555;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            z-index: 2;
-        }
-        
-        .vault-handle:before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 20px;
-            height: 5px;
-            background: #333;
-            transform: translate(-50%, -50%);
-        }
-        
-        .vault-handle:after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 20px;
-            background: #333;
-            transform: translate(-50%, -50%);
-        }
-        
-        .vault-lock {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100px;
-            height: 100px;
-            background: #333;
-            border-radius: 50%;
-            border: 5px solid #444;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5), inset 0 0 15px rgba(0,0,0,0.5);
-            z-index: 1;
+
+        .cta-buttons {
             display: flex;
-            align-items: center;
             justify-content: center;
-            color: var(--accent);
-            font-size: 2.5rem;
-            text-shadow: 0 0 10px rgba(230, 57, 70, 0.7);
-        }
-        
-        .vault-inner {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #1a1a1a, #222);
-            border-radius: 5px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        
-        .vault-content {
-            width: 100%;
-            max-height: 100%;
-            overflow-y: auto;
-            padding: 1rem;
-            opacity: 0;
-            transition: opacity 1s ease 0.5s;
-        }
-        
-        .vault-content.visible {
-            opacity: 1;
-        }
-        
-        .deal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
+            gap: 1rem;
             margin-top: 2rem;
         }
-        
-        .deal-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .deal-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-        
-        .deal-route {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-        
-        .deal-airline {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-bottom: 0.5rem;
-        }
-        
-        .deal-dates {
-            font-size: 0.85rem;
-            opacity: 0.7;
-            margin-bottom: 1rem;
-        }
-        
-        .deal-price {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-        
-        .deal-link {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background-color: var(--accent);
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        
-        .deal-link:hover {
-            background-color: #d32638;
-        }
-        
-        .payment-section {
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            margin-top: 2rem;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-        }
-        
-        .payment-section h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-        
-        .price-display {
-            font-size: 3rem;
-            font-weight: bold;
-            color: var(--accent);
-            margin: 1.5rem 0;
-        }
-        
-        .payment-form {
-            max-width: 400px;
-            margin: 0 auto;
-            text-align: left;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-        }
-        
-        .form-input {
-            width: 100%;
-            padding: 0.8rem;
-            border-radius: 5px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 1rem;
-        }
-        
-        .form-input:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 2px rgba(230, 57, 70, 0.3);
-        }
-        
-        .payment-btn {
-            display: inline-block;
+
+        .cta-buttons .btn {
             padding: 1rem 2rem;
-            background-color: var(--accent);
-            color: white;
-            border: none;
             border-radius: 50px;
-            font-size: 1.1rem;
+            text-decoration: none;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
-            width: 100%;
+            transition: all 0.3s ease;
         }
-        
-        .payment-btn:hover {
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+        }
+
+        .btn-primary:hover {
             background-color: #d32638;
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(230, 57, 70, 0.6);
+            box-shadow: 0 7px 20px rgba(230, 57, 70, 0.6);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
         }
         
-        .payment-btn:active {
-            transform: translateY(-1px);
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            cursor: pointer;
         }
         
-        .vault-open .vault-door {
-            transform: rotateY(-105deg);
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
         }
         
-        .benefits-section {
+        .features {
             padding: 6rem 0;
-            background-color: var(--dark-bg);
-        }
-        
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .benefit-card {
-            background: linear-gradient(135deg, rgba(40, 40, 40, 0.8), rgba(20, 20, 20, 0.8));
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .benefit-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        .benefit-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            color: var(--accent);
-        }
-        
-        .benefit-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .benefit-card p {
-            opacity: 0.8;
+            background-color: var(--primary);
         }
         
         .section-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
         }
         
         .section-header h2 {
@@ -471,9 +202,282 @@
             opacity: 0.8;
         }
         
-        .faq-section {
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.8), rgba(20, 20, 20, 0.8));
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card p {
+            opacity: 0.8;
+            flex-grow: 1;
+        }
+        
+        .destinations {
+            padding: 6rem 0;
+            background-color: var(--dark-bg);
+        }
+        
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .destination-card {
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            height: 350px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        
+        .destination-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .destination-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .destination-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .destination-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+        }
+        
+        .destination-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .destination-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        .testimonials {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+        }
+        
+        .testimonial-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .testimonial-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 3rem;
+            position: relative;
+        }
+        
+        .testimonial-card:before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 8rem;
+            color: var(--accent);
+            opacity: 0.2;
+            line-height: 1;
+        }
+        
+        .testimonial-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .author-info p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        .cta-section {
+            padding: 8rem 0;
+            text-align: center;
+            background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/api/placeholder/1920/1080');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+        
+        .cta-price {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .price-value {
+            font-size: 4rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-right: 1rem;
+            line-height: 1;
+        }
+        
+        .price-details {
+            text-align: left;
+        }
+        
+        .price-period {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .price-description {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        .guarantee {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 1rem;
+        }
+        
+        .how-it-works {
             padding: 6rem 0;
             background-color: var(--primary);
+        }
+        
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            counter-reset: step;
+            margin-top: 4rem;
+        }
+        
+        .step {
+            flex: 0 0 30%;
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+        }
+        
+        .step:before {
+            counter-increment: step;
+            content: counter(step);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .step:not(:last-child):after {
+            content: "";
+            position: absolute;
+            top: 30px;
+            right: -15%;
+            width: 30%;
+            border-top: 2px dashed rgba(255, 255, 255, 0.2);
+        }
+        
+        .step h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .step p {
+            opacity: 0.8;
+        }
+        
+        .faq {
+            padding: 6rem 0;
+            background-color: var(--dark-bg);
         }
         
         .faq-grid {
@@ -522,6 +526,69 @@
         
         .faq-item.active .faq-answer {
             display: block;
+        }
+        
+        .instagram-feed {
+            padding: 6rem 0;
+            background-color: var(--primary);
+        }
+        
+        .insta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+        
+        .insta-item {
+            overflow: hidden;
+            aspect-ratio: 1 / 1;
+            position: relative;
+            border-radius: 10px;
+        }
+        
+        .insta-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .insta-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .insta-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .insta-item:hover .insta-overlay {
+            opacity: 1;
+        }
+        
+        .insta-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .insta-link:hover {
+            text-decoration: underline;
         }
         
         footer {
@@ -654,43 +721,92 @@
             color: var(--accent);
         }
         
-        .spark {
-            position: absolute;
-            background: radial-gradient(circle at center, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-            border-radius: 50%;
-            opacity: 0;
-            z-index: 10;
-            pointer-events: none;
-        }
-        
-        @keyframes sparkle {
-            0% {
-                opacity: 1;
-                transform: scale(0);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(1);
-            }
-        }
-        
-        .ribbon {
-            position: absolute;
-            top: 0;
-            right: 0;
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
             background-color: var(--accent);
             color: white;
-            padding: 0.5rem 2rem;
-            font-weight: bold;
-            transform: rotate(45deg) translateX(3rem) translateY(-1rem);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-            z-index: 5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            z-index: 99;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
-        @keyframes pulse {
-            0% { text-shadow: 0 0 10px rgba(230, 57, 70, 0.5); }
-            50% { text-shadow: 0 0 25px rgba(230, 57, 70, 0.8); }
-            100% { text-shadow: 0 0 10px rgba(230, 57, 70, 0.5); }
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            background-color: #d32638;
+        }
+        
+        /* Floating Deals Panel */
+        .floating-deals {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background-color: rgba(26, 26, 26, 0.95);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 98;
+            max-width: 300px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: translateY(150%);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .floating-deals.visible {
+            transform: translateY(0);
+        }
+        
+        .floating-deals h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        
+        .floating-deal {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .floating-deal:last-child {
+            margin-bottom: 0;
+        }
+        
+        .deal-destination {
+            flex-grow: 1;
+        }
+        
+        .deal-price {
+            font-weight: bold;
+            color: var(--accent);
+        }
+        
+        .close-deals {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
         }
         
         @media (max-width: 768px) {
@@ -739,33 +855,116 @@
                 font-size: 2.5rem;
             }
             
-            .hero p {
-                font-size: 1.1rem;
+            .hero h2 {
+                font-size: 1.2rem;
             }
             
-            .vault-door:before {
-                width: 70%;
-                height: 70%;
+            .cta-buttons {
+                flex-direction: column;
             }
             
-            .vault-handle {
-                width: 40px;
-                height: 40px;
+            .btn {
+                width: 100%;
+                text-align: center;
+                margin-bottom: 1rem;
             }
             
-            .vault-lock {
-                width: 80px;
-                height: 80px;
-                font-size: 1.8rem;
+            .step:not(:last-child):after {
+                display: none;
             }
             
-            .benefit-card {
-                padding: 1.5rem;
+            .step {
+                flex: 0 0 100%;
+                margin-bottom: 2rem;
             }
             
             .faq-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .floating-deals {
+                left: 1rem;
+                right: 1rem;
+                max-width: calc(100% - 2rem);
+            }
+        }
+
+        .hero-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                padding: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero h2 {
+                font-size: 1rem;
+            }
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Hero Button Fix */
+        .btn-primary {
+            background-color: white; /* Change background to white for better contrast */
+            color: var(--accent); /* Use the accent color for text */
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            background-color: #f5f5f5; /* Slightly darker white for hover */
+            color: var(--accent); /* Keep text color consistent */
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(230, 57, 70, 0.6);
+        }
+
+        /* CTA Button Improvement */
+        .cta-section .btn-primary {
+            font-size: 1.2rem; /* Increase font size for better readability */
+            padding: 1.2rem 2.5rem; /* Add more padding for a larger button */
+            border: 2px solid var(--accent); /* Add a border for a polished look */
+            background-color: var(--accent); /* Keep the red background */
+            color: white; /* Ensure text is white for contrast */
+            box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3); /* Subtle shadow */
+        }
+
+        .cta-section .btn-primary:hover {
+            background-color: #d32638; /* Slightly darker red for hover */
+            border-color: #d32638; /* Match border color with background */
+            transform: translateY(-2px); /* Subtle hover effect */
+            box-shadow: 0 6px 15px rgba(230, 57, 70, 0.5);
+        }
+
+        /* General Button Styling */
+        .btn-primary {
+            background-color: var(--accent); /* Red background */
+            color: white; /* White text */
+            text-decoration: none; /* Remove underline */
+            padding: 1rem 2rem; /* Add padding for better size */
+            border-radius: 50px; /* Round corners */
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3); /* Subtle shadow */
+        }
+
+        .btn-primary:hover {
+            background-color: #d32638; /* Slightly darker red for hover */
+            transform: translateY(-2px); /* Subtle hover effect */
+            box-shadow: 0 6px 15px rgba(230, 57, 70, 0.5); /* Enhanced shadow on hover */
         }
     </style>
 </head>
@@ -778,12 +977,12 @@
                 <nav>
                     <button class="close-menu">✕</button>
                     <ul>
-                        <li><a href="index.html#features">How It Works</a></li>
-                        <li><a href="index.html#destinations">Top Deals</a></li>
-                        <li><a href="index.html#testimonials">Reviews</a></li>
-                        <li><a href="index.html#faq">FAQ</a></li>
-                        <li><a href="flight-vault.html">Flight Vault</a></li>
-                        <li><a href="index.html#contact">Contact</a></li>
+                        <li><a href="#features">How It Works</a></li>
+                        <li><a href="#destinations">Top Deals</a></li>
+                        <li><a href="#testimonials">Reviews</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="/flight-vault.html">Flight Vault</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </nav>
             </div>
@@ -791,353 +990,372 @@
     </header>
     
     <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>The Flight Vault</h1>
-                <p>Unlock exclusive access to premium flight deals that save you up to 80% on your travel</p>
+    <div class="container">
+        <div class="hero-content">
+            <h1>Unlock <span class="highlight">Travel's Best-Kept Secrets</span></h1>
+            <h2>Join thousands of savvy travellers who save up to <span class="highlight">80%</span> on flights with insider deals that never reach comparison sites.</h2>
+            <div class="cta-buttons">
+                <a href="flight-vault.html" class="btn btn-primary">Access The Flight Vault</span></a>
+                <a href="#how-it-works" class="btn btn-secondary">Learn More</a>
             </div>
         </div>
-    </section>
+    </div>
+</section>
     
-    <section class="vault-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Unlock Extraordinary Flight Deals</h2>
-                <p>One-time payment for lifetime access to my exclusive collection of flight deals that most people never find.</p>
-            </div>
-            
-            <div class="vault-container">
-                <div class="ribbon">EXCLUSIVE</div>
-                <h2 class="vault-label">PREMIUM FLIGHT VAULT</h2>
-                <div class="vault">
-                    <div class="vault-door">
-                        <div class="vault-handle"></div>
-                        <div class="vault-lock">✈️</div>
-                    </div>
-                    <div class="vault-inner">
-                        <div class="vault-content">
-                            <h2>Welcome to the Flight Vault!</h2>
-                            <p>Here are your exclusive flight deals, handpicked just for you.</p>
-                            
-                            <div class="deal-grid">
-                                <div class="deal-card">
-                                    <div class="deal-route">London to New York</div>
-                                    <div class="deal-airline">Virgin Atlantic | Direct</div>
-                                    <div class="deal-dates">Available May - June 2025</div>
-                                    <div class="deal-price">£299 Return</div>
-                                    <a href="#" class="deal-link">Book Now</a>
-                                </div>
-                                
-                                <div class="deal-card">
-                                    <div class="deal-route">London to Bali</div>
-                                    <div class="deal-airline">Emirates | 1 Stop</div>
-                                    <div class="deal-dates">Available May - Nov 2025</div>
-                                    <div class="deal-price">£499 Return</div>
-                                    <a href="#" class="deal-link">Book Now</a>
-                                </div>
-                                
-                                <div class="deal-card">
-                                    <div class="deal-route">London to Tokyo</div>
-                                    <div class="deal-airline">JAL | 1 Stop</div>
-                                    <div class="deal-dates">Available June - Oct 2025</div>
-                                    <div class="deal-price">£519 Return</div>
-                                    <a href="#" class="deal-link">Book Now</a>
-                                </div>
-                                
-                                <div class="deal-card">
-                                    <div class="deal-route">London to Dubai</div>
-                                    <div class="deal-airline">Emirates | Direct</div>
-                                    <div class="deal-dates">Available May - Sept 2025</div>
-                                    <div class="deal-price">£329 Return</div>
-                                    <a href="#" class="deal-link">Book Now</a>
-                                </div>
-                                
-                                <div class="deal-card">
-                                    <div class="deal-route">London to Los Angeles</div>
-                                    <div class="deal-airline">British Airways | Direct</div>
-                                    <div class="deal-dates">Available June - July 2025</div>
-                                    <div class="deal-price">£389 Return</div>
-                                    <a href="#" class="deal-link">Book Now</a>
-                                </div>
-                                
-                                <div class="deal-card">
-                                    <div class="deal-route">London to Cape Town</div>
-                                    <div class="deal-airline">Qatar Airways | 1 Stop</div>
-                                    <div class="deal-dates">Available Sept - Nov 2025</div>
-                                    <div class="deal-price">£449 Return</div>
-                                    <a href="#" class="deal-link">Book Now</a>
-                                </div>
-                                
-                                <div class="deal-card">
-                                    <div class="deal-route">London to Sydney</div>
-                                    <div class="deal-airline">Singapore Airlines | 1 Stop</div>
-                                    <div class="deal-dates">Available June - Aug 2025</div>
-                                    <div class="deal-price">£699 Return</div>
-                                    <a href="#" class="deal-link">Book Now</a>
-                                </div>
-                                
-                                <div class="deal-card">
-                                    <div class="deal-route">London to Bangkok</div>
-                                    <div class="deal-airline">Thai Airways | Direct</div>
-                                    <div class="deal-dates">Available May - Oct 2025</div>
-                                    <div class="deal-price">£469 Return</div>
-                                    <a href="#" class="deal-link">Book Now</a>
-                                </div>
-                                
-                                <div class="deal-card">
-                                    <div class="deal-route">London to Miami</div>
-                                    <div class="deal-airline">Virgin Atlantic | Direct</div>
-                                    <div class="deal-dates">Available May - June 2025</div>
-                                    <div class="deal-price">£379 Return</div>
-                                    <a href="#" class="deal-link">Book Now</a>
-                                </div>
-                                
-                                <div class="deal-card">
-                                    <div class="deal-route">London to Vancouver</div>
-                                    <div class="deal-airline">Air Canada | Direct</div>
-                                    <div class="deal-dates">Available June - Sept 2025</div>
-                                    <div class="deal-price">£449 Return</div>
-                                    <a href="#" class="deal-link">Book Now</a>
-                                </div>
-                                
-                                <div class="deal-card">
-                                    <div class="deal-route">London to Cancun</div>
-                                    <div class="deal-airline">British Airways | Direct</div>
-                                    <div class="deal-dates">Available May - June 2025</div>
-                                    <div class="deal-price">£429 Return</div>
-                                    <a href="#" class="deal-link">Book Now</a>
-                                </div>
-                                
-                                <div class="deal-card">
-                                    <div class="deal-route">London to Singapore</div>
-                                    <div class="deal-airline">Singapore Airlines | Direct</div>
-                                    <div class="deal-dates">Available June - Aug 2025</div>
-                                    <div class="deal-price">£499 Return</div>
-                                    <a href="#" class="deal-link">Book Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="payment-section">
-                    <h3>Unlock The Flight Vault</h3>
-                    <p>One-time payment for lifetime access to exclusive flight deals</p>
-                    <div class="price-display">£19.99</div>
-                    
-                    <form id="payment-form" class="payment-form">
-                        <div class="form-group">
-                            <label for="name" class="form-label">Full Name</label>
-                            <input type="text" id="name" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group
-                        <div class="form-group">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" id="email" class="form-input" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="card" class="form-label">Card Number</label>
-                            <input type="text" id="card" class="form-input" placeholder="1234 5678 9012 3456" required>
-                        </div>
-                        
-                        <div class="form-group" style="display: flex; gap: 1rem;">
-                            <div style="flex: 1;">
-                                <label for="expiry" class="form-label">Expiry Date</label>
-                                <input type="text" id="expiry" class="form-input" placeholder="MM/YY" required>
-                            </div>
-                            <div style="flex: 1;">
-                                <label for="cvc" class="form-label">CVC</label>
-                                <input type="text" id="cvc" class="form-input" placeholder="123" required>
-                            </div>
-                        </div>
-                        
-                        <button type="submit" class="payment-btn">Unlock Now</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="benefits-section">
+    <section id="features" class="features">
         <div class="container">
             <div class="section-header">
-                <h2>Why Join The Flight Vault?</h2>
-                <p>Discover the advantages of becoming a member of our exclusive flight deals community</p>
+                <h2>Why Fly With <span class="highlight">Ralph?</span></h2>
+                <p>I help savvy travellers spot flight deals that the average person never finds, saving you <span class="highlight">hundreds</span> on your next adventure.</p>
             </div>
-            
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon">💰</div>
-                    <h3>Save Up To 80%</h3>
-                    <p>Access flight deals that are significantly below market rates, saving you hundreds on every trip.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Save Up To <span class="highlight">80%</span></h3>
+                    <p>My members regularly save <span class="highlight">40-80%</span> on flights to destinations worldwide, from weekend breaks to dream trips.</p>
                 </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon">🔑</div>
-                    <h3>Lifetime Access</h3>
-                    <p>Pay once and enjoy unlimited access to all current and future flight deals forever.</p>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Expert Deal Hunting</h3>
+                    <p>I spend hours each day searching for pricing errors, hidden deals, and flash sales that most people miss.</p>
                 </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon">🔍</div>
-                    <h3>Hidden Gems</h3>
-                    <p>Discover routes and deals that most travelers and even travel agents don't know about.</p>
+                <div class="feature-card">
+                    <div class="feature-icon">✈️</div>
+                    <h3>Premium Airlines</h3>
+                    <p>No budget carriers or uncomfortable flights. I focus on <span class="highlight">quality airlines</span> with great service and amenities.</p>
                 </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon">⚡</div>
-                    <h3>Instant Access</h3>
-                    <p>Get immediate access to all deals as soon as your payment is processed.</p>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant Alerts</h3>
+                    <p>Get notified immediately when incredible deals match your travel preferences, before they disappear.</p>
                 </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon">🔄</div>
-                    <h3>Regular Updates</h3>
-                    <p>New flight deals are added regularly, so you'll always have fresh options.</p>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Personal Service</h3>
+                    <p>I'm a real person, not an algorithm. Ask me anything and get tailored advice for your travel needs.</p>
                 </div>
-                
-                <div class="benefit-card">
-                    <div class="benefit-icon">📱</div>
-                    <h3>Mobile Friendly</h3>
-                    <p>Access your flight deals on any device, anywhere, anytime.</p>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Exclusive Access</h3>
+                    <p>Members-only deals and flight tips that aren't shared publicly, giving you a genuine travel advantage.</p>
                 </div>
             </div>
         </div>
     </section>
     
-    <section class="faq-section">
+    <section id="destinations" class="destinations">
+    <div class="container">
+        <div class="section-header">
+            <h2>Recent <span class="highlight">Flight Deals</span></h2>
+            <p>These are real deals our members recently booked. New opportunities emerge <span class="highlight">daily!</span></p>
+        </div>
+        <div class="destinations-grid">
+            <div class="destination-card">
+                <img src="https://res.cloudinary.com/dtljonz0f/image/upload/shutterstock_329662223_ss_non-editorial_3_csm8lw" alt="New York">
+                <div class="destination-content">
+                    <h3>London to <span class="highlight">New York</span></h3>
+                    <p>Direct | Virgin Atlantic</p>
+                    <p class="destination-price"><span class="highlight">£299</span> Return</p>
+                </div>
+            </div>
+            <div class="destination-card">
+                <img src="https://res.cloudinary.com/aenetworks/image/upload/c_fill,ar_2,w_3840,h_1920,g_auto/dpr_auto/f_auto/q_auto:eco/v1/gettyimages-1390815938?_a=BAVAZGDX0" alt="Tokyo">
+                <div class="destination-content">
+                    <h3>London to <span class="highlight">Tokyo</span></h3>
+                    <p>1 Stop | JAL</p>
+                    <p class="destination-price"><span class="highlight">£519</span> Return</p>
+                </div>
+            </div>
+            <div class="destination-card">
+                <img src="https://media.digitalnomads.world/wp-content/uploads/2021/01/20120709/bali-for-digital-nomads.jpg" alt="Bali">
+                <div class="destination-content">
+                    <h3>London to <span class="highlight">Bali</span></h3>
+                    <p>1 Stop | Emirates</p>
+                    <p class="destination-price"><span class="highlight">£499</span> Return</p>
+                </div>
+            </div>
+            <div class="destination-card">
+                <img src="https://bucket-files.city-sightseeing.com/blog/2023/05/los-angeles-city-skyline.jpg" alt="Los Angeles">
+                <div class="destination-content">
+                    <h3>London to <span class="highlight">Los Angeles</span></h3>
+                    <p>Direct | British Airways</p>
+                    <p class="destination-price"><span class="highlight">£389</span> Return</p>
+                </div>
+            </div>
+            <div class="destination-card">
+                <img src="https://mediaim.expedia.com/destination/9/cd8a3f3db7149b0ce36d052aea1182df.jpg" alt="Dubai">
+                <div class="destination-content">
+                    <h3>London to <span class="highlight">Dubai</span></h3>
+                    <p>Direct | Emirates</p>
+                    <p class="destination-price"><span class="highlight">£329</span> Return</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="how-it-works" class="how-it-works">
+    <div class="container">
+        <div class="section-header">
+            <h2>How The <span class="highlight">Flight Vault</span> Works</h2>
+            <p>Getting started with Ralph Travels is simple. Follow these three steps to unlock amazing flight deals.</p>
+        </div>
+        <div class="steps">
+            <div class="step">
+                <h3>Join The <span class="highlight">Flight Vault</span></h3>
+                <p>Make a <span class="highlight">one-time</span> payment to access my exclusive flight deals archive and real-time alerts.</p>
+            </div>
+            <div class="step">
+                <h3>Get <span class="highlight">Instant Access</span></h3>
+                <p>Unlock the vault and browse <span class="highlight">current deals</span> or set up alerts for destinations you're interested in.</p>
+            </div>
+            <div class="step">
+                <h3>Book & <span class="highlight">Save</span></h3>
+                <p>Use the direct booking links to secure your flights and save <span class="highlight">hundreds</span> on your next adventure.</p>
+            </div>
+        </div>
+    </div>
+</section>
+    
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Members Say</h2>
+                <p>Don't take my word for it. Here's what real members have to say about their experiences.</p>
+            </div>
+            <div class="testimonial-container">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Ralph found me a deal to New York for £299 that I couldn't find anywhere else. I've already saved over £600 on two trips this year. Best subscription I've ever had!"</p>
+                    <div class="testimonial-author">
+                        <img src="/api/placeholder/60/60" alt="Sarah J." class="author-image">
+                        <div class="author-info">
+                            <h4>Sarah J.</h4>
+                            <p>Member since 2023</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="cta" class="cta-section">
+    <div class="container">
+        <div class="cta-content">
+            <h2>Ready To <span class="highlight">Travel For Less?</span></h2>
+            <p>Join thousands of smart travellers who never overpay for flights again.</p>
+            <div class="cta-price">
+                <div class="price-value"><span class="highlight">£19.99</span></div>
+                <div class="price-details">
+                    <div class="price-period">One-time payment</div>
+                    <div class="price-description">Lifetime access to the <span class="highlight">Flight Vault</span></div>
+                </div>
+            </div>
+            <a href="flight-vault.html" class="btn btn-primary">Access The Flight Vault Now</a>
+            <p class="guarantee" style="margin-top: 2.5rem; margin-bottom: 0; padding-bottom: 0;"><span class="highlight">30-day money-back guarantee</span> if you don't find a deal that saves you money</p>
+        </div>
+    </div>
+</section>
+    
+    <section id="faq" class="faq">
         <div class="container">
             <div class="section-header">
                 <h2>Frequently Asked Questions</h2>
-                <p>Find answers to the most common questions about the Flight Vault</p>
+                <p>Got questions? I've got answers. Here are some of the most common questions I receive.</p>
             </div>
-            
             <div class="faq-grid">
                 <div class="faq-item">
                     <div class="faq-question">
-                        <span>How do I book these deals?</span>
+                        <span>How do you find these deals?</span>
                         <span class="faq-icon">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>Each deal comes with direct booking instructions. You'll be directed to the airline's official website or a trusted booking partner to complete your purchase securely.</p>
+                        <p>I use a combination of advanced search techniques, industry connections, and proprietary tools to spot pricing errors, hidden deals, and flash sales that most people miss. I spend hours every day searching for the best flight deals so you don't have to.</p>
                     </div>
                 </div>
-                
                 <div class="faq-item">
                     <div class="faq-question">
-                        <span>Are these deals guaranteed to be available?</span>
+                        <span>Are these deals trustworthy?</span>
                         <span class="faq-icon">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>Flight deals are subject to availability and can sell out quickly. We recommend booking as soon as you find a deal that interests you. We regularly update our deals to remove any that are no longer available.</p>
+                        <p>Absolutely! All deals are for flights with reputable airlines and are booked directly through the airline's website or trusted partners. These are real tickets with the same guarantees and protections as any standard booking.</p>
                     </div>
                 </div>
-                
                 <div class="faq-item">
                     <div class="faq-question">
-                        <span>What does "lifetime access" mean?</span>
+                        <span>What's included in my vault access?</span>
                         <span class="faq-icon">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>Once you've paid the one-time fee, you'll have access to the Flight Vault for as long as it exists. You'll receive all future updates and new deals at no additional cost.</p>
+                        <p>Your one-time payment gives you lifetime access to the Flight Vault, which includes all current deals, access to future deals as they're discovered, destination guides, and my personal travel recommendations. You can also opt-in to email alerts for specific destinations.</p>
                     </div>
                 </div>
-                
                 <div class="faq-item">
                     <div class="faq-question">
-                        <span>Can I get a refund if I'm not satisfied?</span>
+                        <span>How quickly do I need to book deals?</span>
                         <span class="faq-icon">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>Yes, we offer a 30-day money-back guarantee. If you're not completely satisfied with the Flight Vault, contact us within 30 days of your purchase for a full refund.</p>
+                        <p>Error fares and flash sales can disappear quickly, sometimes within hours. I recommend booking as soon as you see a deal you like. However, many deals last several days, giving you time to coordinate with travel companions.</p>
                     </div>
                 </div>
-                
                 <div class="faq-item">
                     <div class="faq-question">
-                        <span>How often are new deals added?</span>
+                        <span>What if I can't find a deal that works for me?</span>
                         <span class="faq-icon">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>We add new deals weekly, with major updates happening at least once a month. The best deals are typically added as soon as they become available.</p>
+                        <p>If you don't find a deal that saves you money within 30 days of joining, I offer a full refund. However, with dozens of new deals each month covering destinations worldwide, most members find valuable deals quickly.</p>
                     </div>
                 </div>
-                
                 <div class="faq-item">
                     <div class="faq-question">
-                        <span>Are these deals available from airports outside of London?</span>
+                        <span>Can I request deals for specific destinations?</span>
                         <span class="faq-icon">+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>Currently, most of our deals are from London airports. However, we're continuously expanding to include more departure cities across the UK and Europe.</p>
+                        <p>Yes! Members can set up alerts for specific destinations, and I also take requests for destinations to prioritize in my searches. While I can't guarantee deals to every destination, I do my best to find options that work for my members.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <footer>
+    <section class="instagram-feed">
+        <div class="container">
+            <div class="section-header">
+                <h2>Follow My Adventures</h2>
+                <p>Join me on Instagram @ralph.travels for travel inspiration, behind-the-scenes deal hunting, and destination tips.</p>
+            </div>
+            <div class="insta-grid">
+                <div class="insta-item">
+                    <img src="/api/placeholder/400/400" alt="Instagram photo">
+                    <div class="insta-overlay">
+                        <span>📍</span>
+                    </div>
+                </div>
+                <div class="insta-item">
+                    <img src="/api/placeholder/400/400" alt="Instagram photo">
+                    <div class="insta-overlay">
+                        <span>📍</span>
+                    </div>
+                </div>
+                <div class="insta-item">
+                    <img src="/api/placeholder/400/400" alt="Instagram photo">
+                    <div class="insta-overlay">
+                        <span>📍</span>
+                    </div>
+                </div>
+                <div class="insta-item">
+                    <img src="/api/placeholder/400/400" alt="Instagram photo">
+                    <div class="insta-overlay">
+                        <span>📍</span>
+                    </div>
+                </div>
+                <div class="insta-item">
+                    <img src="/api/placeholder/400/400" alt="Instagram photo">
+                    <div class="insta-overlay">
+                        <span>📍</span>
+                    </div>
+                </div>
+                <div class="insta-item">
+                    <img src="/api/placeholder/400/400" alt="Instagram photo">
+                    <div class="insta-overlay">
+                        <span>📍</span>
+                    </div>
+                </div>
+                <div class="insta-item">
+                    <img src="/api/placeholder/400/400" alt="Instagram photo">
+                    <div class="insta-overlay">
+                        <span>📍</span>
+                    </div>
+                </div>
+                <div class="insta-item">
+                    <img src="/api/placeholder/400/400" alt="Instagram photo">
+                    <div class="insta-overlay">
+                        <span>📍</span>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="https://www.instagram.com/ralph.travels/" target="_blank" class="insta-link">Follow @ralph.travels →</a>
+            </div>
+        </div>
+    </section>
+    
+    <footer id="contact">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-column">
                     <h3>Ralph Travels</h3>
-                    <p>Finding you the best flight deals since 2023. Unlock extraordinary savings on your next adventure.</p>
+                    <p>Helping savvy travellers find incredible flight deals since 2020.</p>
                     <div class="social-links">
-                        <a href="#" class="social-link">f</a>
-                        <a href="#" class="social-link">t</a>
-                        <a href="#" class="social-link">in</a>
-                        <a href="#" class="social-link">ig</a>
+                        <a href="https://www.instagram.com/ralph.travels/" class="social-link" target="_blank">IG</a>
+                        <a href="https://www.tiktok.com/@ralph__travels" class="social-link" target="_blank">TK</a>
+                        <a href="#" class="social-link">FB</a>
+                        <a href="#" class="social-link">TW</a>
                     </div>
                 </div>
-                
                 <div class="footer-column">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="index.html#features">How It Works</a></li>
-                        <li><a href="index.html#destinations">Top Deals</a></li>
-                        <li><a href="index.html#testimonials">Reviews</a></li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#features">How It Works</a></li>
+                        <li><a href="#destinations">Top Deals</a></li>
                         <li><a href="flight-vault.html">Flight Vault</a></li>
+                        <li><a href="#testimonials">Reviews</a></li>
+                        <li><a href="#faq">FAQ</a></li>
                     </ul>
                 </div>
-                
                 <div class="footer-column">
-                    <h3>Support</h3>
+                    <h3>Contact Me</h3>
                     <ul>
-                        <li><a href="index.html#faq">FAQ</a></li>
-                        <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="privacy.html">Privacy Policy</a></li>
-                        <li><a href="terms.html">Terms of Service</a></li>
-                        <li><a href="refund.html">Refund Policy</a></li>
+                        <li>Email: hello@ralphtravels.co.uk</li>
+                        <li>Instagram: @ralph.travels</li>
+                        <li>TikTok: @ralph__travels</li>
                     </ul>
                 </div>
-                
                 <div class="footer-column">
                     <h3>Newsletter</h3>
-                    <p>Subscribe to get free flight deals and travel tips straight to your inbox.</p>
+                    <p>Join my free newsletter for travel tips and occasional free flight deals.</p>
                     <form class="newsletter-form">
-                        <input type="email" placeholder="Your email" class="newsletter-input" required>
+                        <input type="email" placeholder="Your email address" class="newsletter-input">
                         <button type="submit" class="newsletter-btn">→</button>
                     </form>
                 </div>
             </div>
-            
             <div class="bottom-footer">
                 <p>&copy; 2025 Ralph Travels. All rights reserved.</p>
                 <div class="footer-nav">
-                    <a href="privacy.html">Privacy</a>
-                    <a href="terms.html">Terms</a>
-                    <a href="cookies.html">Cookies</a>
-                    <a href="sitemap.html">Sitemap</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
                 </div>
             </div>
         </div>
     </footer>
     
+    <a href="#" class="scroll-to-top">↑</a>
+    
+    <div class="floating-deals">
+        <button class="close-deals">×</button>
+        <h3>Today's Hot Deals</h3>
+        <div class="floating-deal">
+            <div class="deal-destination">London → Bali</div>
+            <div class="deal-price">£499</div>
+        </div>
+        <div class="floating-deal">
+            <div class="deal-destination">London → Tokyo</div>
+            <div class="deal-price">£519</div>
+        </div>
+        <div class="floating-deal">
+            <div class="deal-destination">London → NYC</div>
+            <div class="deal-price">£299</div>
+        </div>
+    </div>
+    
     <script>
-        // Mobile menu functionality
+        // Mobile Menu Toggle
         const mobileMenuBtn = document.querySelector('.mobile-menu');
         const closeMenuBtn = document.querySelector('.close-menu');
         const nav = document.querySelector('nav');
@@ -1150,108 +1368,89 @@
             nav.classList.remove('active');
         });
         
-        // Vault animation
-        const vault = document.querySelector('.vault');
-        const vaultDoor = document.querySelector('.vault-door');
-        const vaultContent = document.querySelector('.vault-content');
-        const unlockBtn = document.querySelector('.payment-btn');
-        
-        unlockBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Add sparks animation
-            for (let i = 0; i < 10; i++) {
-                createSpark();
-            }
-            
-            // Open the vault
-            vault.classList.add('vault-open');
-            
-            // Show the content after door animation
-            setTimeout(() => {
-                vaultContent.classList.add('visible');
-            }, 1500);
-            
-            // Scroll to vault content
-            setTimeout(() => {
-                vault.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 2000);
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (nav.classList.contains('active')) {
+                        nav.classList.remove('active');
+                    }
+                }
+            });
         });
         
-        // Spark animation function
-        function createSpark() {
-            const spark = document.createElement('div');
-            spark.classList.add('spark');
-            
-            const size = Math.random() * 10 + 5;
-            spark.style.width = `${size}px`;
-            spark.style.height = `${size}px`;
-            
-            const vaultLock = document.querySelector('.vault-lock');
-            const lockRect = vaultLock.getBoundingClientRect();
-            
-            const x = lockRect.left + lockRect.width / 2;
-            const y = lockRect.top + lockRect.height / 2;
-            
-            spark.style.left = `${x}px`;
-            spark.style.top = `${y}px`;
-            
-            document.body.appendChild(spark);
-            
-            spark.style.animation = `sparkle ${Math.random() * 1 + 0.5}s forwards`;
-            
-            spark.addEventListener('animationend', () => {
-                spark.remove();
-            });
-        }
-        
-        // FAQ toggle functionality
+        // FAQ Accordions
         const faqItems = document.querySelectorAll('.faq-item');
         
         faqItems.forEach(item => {
-            item.addEventListener('click', () => {
-                item.classList.toggle('active');
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                const isOpen = item.classList.contains('active');
+                
+                // Close all FAQs
+                faqItems.forEach(faq => {
+                    faq.classList.remove('active');
+                });
+                
+                // Open clicked FAQ if it was closed
+                if (!isOpen) {
+                    item.classList.add('active');
+                }
             });
         });
         
-        // Form validation
-        const paymentForm = document.getElementById('payment-form');
+        // Scroll to Top Button
+        const scrollTopBtn = document.querySelector('.scroll-to-top');
         
-        paymentForm.addEventListener('submit', function(e) {
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const card = document.getElementById('card').value;
-            const expiry = document.getElementById('expiry').value;
-            const cvc = document.getElementById('cvc').value;
-            
-            // Basic validation
-            if (!name || !email || !card || !expiry || !cvc) {
-                alert('Please fill in all fields');
-                return;
-            }
-            
-            // Here you would typically handle the payment processing
-            // For demonstration purposes, we'll just open the vault
-            
-            // Add sparks animation
-            for (let i = 0; i < 10; i++) {
-                createSpark();
-            }
-            
-            // Open the vault
-            vault.classList.add('vault-open');
-            
-            // Show the content after door animation
-            setTimeout(() => {
-                vaultContent.classList.add('visible');
-            }, 1500);
-            
-            // Scroll to vault content
-            setTimeout(() => {
-                vault.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 2000);
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Show Floating Deals Panel after delay
+        setTimeout(() => {
+            const floatingDeals = document.querySelector('.floating-deals');
+            floatingDeals.classList.add('visible');
+        }, 5000);
+        
+        // Close Floating Deals Panel
+        const closeDealsBtn = document.querySelector('.close-deals');
+        closeDealsBtn.addEventListener('click', () => {
+            const floatingDeals = document.querySelector('.floating-deals');
+            floatingDeals.classList.remove('visible');
+        });
+        
+        // Scroll Indicator
+        const scrollIndicator = document.querySelector('.scroll-indicator');
+        scrollIndicator.addEventListener('click', () => {
+            window.scrollTo({
+                top: window.innerHeight,
+                behavior: 'smooth'
+            });
         });
     </script>
 </body>
