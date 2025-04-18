@@ -1940,6 +1940,30 @@ section {
         width: 40px;
         height: 40px;
     }
+    /* Add to your CSS file */
+.StripeElement {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-small);
+    padding: 1rem;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+  
+  .StripeElement--focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+  }
+  
+  .StripeElement--invalid {
+    border-color: #fa755a;
+  }
+  
+  .error-message {
+    color: #fa755a;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    min-height: 20px;
+  }
 }
 
 /* ===== Animation Keyframes ===== */
