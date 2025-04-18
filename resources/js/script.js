@@ -316,3 +316,167 @@ function initPaymentForm() {
         }
     }
 }
+
+// PAYMENTS
+// server.js
+const express = require('express');
+const stripe = require('stripe')('');
+const app = express();
+
+app.use(express.static('public'));
+app.use(express.json());
+
+// Create payment intent endpoint
+app.post('/create-payment-intent', async (req, res) => {
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: 1999, // £19.99 in pence
+      currency: 'gbp',
+      metadata: {
+        product: 'Flight Vault Lifetime Access'
+      }
+    });
+    
+    res.send({
+      clientSecret: paymentIntent.client_secret
+    });
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
+});
+
+// Webhook for payment confirmation
+app.post('/webhook', express.raw({type: 'application/json'}), async (req, res) => {
+  const sig = req.headers['stripe-signature'];
+  let event;
+
+  try {
+    event = stripe.webhooks.constructEvent(
+      req.body,
+      sig,
+      'whsec_YOUR_WEBHOOK_SECRET'
+    );
+  } catch (err) {
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+
+  // Handle successful payment
+  if (event.type === 'payment_intent.succeeded') {
+    const paymentIntent = event.data.object;
+    // Add code to grant access to Flight Vault
+    // e.g., create user account, send email, etc.
+  }
+
+  res.json({received: true});
+});
+
+app.listen(3000, () => console.log('Server running on port 3000'));
+ 
+// Add to your script.js file
+function initStripePayment() {
+    // Create a Stripe client
+    const stripe = Stripe(');
+    const elements = stripe.elements();
+    
+    // Create card Element and mount it
+    const cardElement = elements.create('card', {
+      style: {
+        base: {
+          color: '#f8f8f8',
+          fontFamily: '"Open Sans", sans-serif',
+          fontSize: '16px',
+          '::placeholder': {
+            color: '#b0b0b0',
+          },
+          backgroundColor: 'transparent',
+        },
+      },
+    });
+    
+    cardElement.mount('#card-element');
+    
+    // Handle validation errors
+    cardElement.on('change', ({error}) => {
+      const displayError = document.getElementById('card-errors');
+      if (error) {
+        displayError.textContent = error.message;
+      } else {
+        displayError.textContent = '';
+      }
+    });
+    
+    // Handle form submission
+    const form = document.getElementById('payment-form');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      
+      // Change button text to show processing
+      const submitButton = form.querySelector('.payment-button');
+      const originalText = submitButton.innerHTML;
+      submitButton.innerHTML = '<span class="payment-button-text">Processing...</span>';
+      submitButton.disabled = true;
+      
+      // Get payment intent from server
+      const response = await fetch('/create-payment-intent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: document.getElementById('email').value,
+          name: document.getElementById('name').value
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (data.error) {
+        const errorElement = document.getElementById('card-errors');
+        errorElement.textContent = data.error;
+        submitButton.innerHTML = originalText;
+        submitButton.disabled = false;
+        return;
+      }
+      
+      // Confirm payment
+      const result = await stripe.confirmCardPayment(data.clientSecret, {
+        payment_method: {
+          card: cardElement,
+          billing_details: {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value
+          },
+        },
+      });
+      
+      if (result.error) {
+        // Show error to customer
+        const errorElement = document.getElementById('card-errors');
+        errorElement.textContent = result.error.message;
+        submitButton.innerHTML = originalText;
+        submitButton.disabled = false;
+      } else {
+        // Payment succeeded!
+        // Change payment form to success message
+        const formContainer = document.querySelector('.payment-form-container');
+        formContainer.innerHTML = `
+          <div class="payment-success">
+            <div class="success-icon">✓</div>
+            <h3>Payment Successful</h3>
+            <p>Thank you for your purchase! Your Flight Vault access has been activated.</p>
+            <p class="gold-text">Your membership is now active</p>
+          </div>
+        `;
+        formContainer.classList.add('payment-success-container');
+        
+        // Animate the vault opening
+        scrollToVault();
+      }
+    });
+  }
+  
+  // Add this to your DOMContentLoaded event
+  document.addEventListener('DOMContentLoaded', function() {
+    // Other initializations...
+    initStripePayment();
+  });
